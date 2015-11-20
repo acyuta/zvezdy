@@ -25,4 +25,6 @@
         'tours' => $tours,
         'clubs' => $clubs,
     ]); ?>
+    <p class="hint-block">Если вашего клуба нет в списке, то напишите на почту <a
+            href="mailto:<?= Yii::$app->params['adminEmail'] ?>">Администратору</a></p>
 </div>
