@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
+use app\models\Concert;
 use yii\helpers\Html;
 
 /* @var $dataProvider \yii\data\ActiveDataProvider */
@@ -20,6 +21,21 @@ $this->title = 'Регистрация на Восходящие звезды';
             ],
             'name',
             'organizer',
+            [
+                'format' => 'html',
+                'label' => 'Туры',
+                'value' => function ($model) {
+                    $res = "Нет туров";
+                    /* @var $model Concert */
+                    if ($model->tours !== null) {
+                        $res = "";
+                        foreach ($model->tours as $tour) {
+                            $res .= '<p>' . $tour->program_position . '. ' .$tour->name .  ' (' . $tour->age_group . ')' . ($tour->is_solo == 1 ? ' соло' : '') . '</p></p>';
+                        }
+                    }
+                    return $res;
+                }
+            ],
             [
                 'format' => 'html',
                 'label' => '',
