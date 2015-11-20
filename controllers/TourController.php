@@ -83,11 +83,13 @@ class TourController extends NonGuestController
     {
         $model = $this->findModel($id);
 
+        $concerts = Concert::findAll(['is_available' => 1]);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'concerts' => $concerts,
             ]);
         }
     }
