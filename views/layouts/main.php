@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\components\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -27,26 +28,41 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandLabel' => 'Восходящие звезды',
+        'brandUrl' => 'http://zvezdy.tomsk.ru',
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    $items = [
+        ['label' => 'Конкурсы', 'url' => ['/site/index']],
+        //['label' => 'Регистрация', 'url' => ['/registration/index']],
+        ['label' => 'Списки', 'url' => ['/registration/list']],
+    ];
+    if (Yii::$app->user->isGuest) {
+        array_push($items, ['label' => '<span class="glyphicon glyphicon-log-in"/>', 'url' => ['/site/login']]);
+    } else {
+        $items = array_merge($items, [
+            [
+                'label' => 'Управление', 'items' => [
+                ['label' => 'Концерты', 'url' => ['/concert/index']],
+                ['label' => 'Туры', 'url' => ['/tour/index']],
+                ['label' => 'Пары', 'url' => ['/couple/index']],
+                ['label' => 'Клубы', 'url' => ['/club/index']],
+
+            ]
+            ],
+            [
+                'label' => '<span class="glyphicon glyphicon-log-out"/>',
+                'url' => ['/site/logout'],
+                'linkOptions' => ['data-method' => 'post']
+            ],
+        ]);
+    }
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ?
-                ['label' => 'Login', 'url' => ['/site/login']] :
-                [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ],
-        ],
+        'options' => ['class' => 'navbar-nav navbar-pills navbar-right'],
+        'encodeLabels' => false,
+        'items' => $items,
     ]);
     NavBar::end();
     ?>
@@ -55,6 +71,7 @@ AppAsset::register($this);
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
+        <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </div>
@@ -63,7 +80,6 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
 

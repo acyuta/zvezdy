@@ -6,6 +6,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'ru',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -13,6 +14,20 @@ $config = [
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            // Disable listindex.php
+            'showScriptName' => false,
+            // Disable r= routes
+            'enablePrettyUrl' => true,
+            'rules' => [
+                '/tour-list/<id>' => 'registration/tour',
+                '/list' => 'registration/list',
+                'registration/<id>' => 'registration/index',
+                '/' => 'site/index',
+
+            ],
         ],
         'user' => [
             'identityClass' => 'app\models\User',
