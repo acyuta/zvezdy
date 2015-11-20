@@ -12,6 +12,11 @@ class m151119_055827_create_couple extends Migration
     public $fk_couple_club_id = "fk_couple_club_id";
     public function safeUp()
     {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
         $this->createTable($this->tableName,[
             'id' => $this->primaryKey(),
             'tour_id' => $this->integer()->notNull(),
@@ -22,7 +27,7 @@ class m151119_055827_create_couple extends Migration
             'gname' => $this->text()->notNull(),
             'gsurname' => $this->text()->notNull(),
             'gyear' => $this->text()->notNull(),
-        ]);
+        ],$tableOptions);
 
         $this->addForeignKey($this->fk_couple_tour_id,$this->tableName,'tour_id',$this->tourTable,'id');
         $this->addForeignKey($this->fk_couple_club_id,$this->tableName,'club_id',$this->clubTable,'id');

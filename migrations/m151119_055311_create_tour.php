@@ -11,6 +11,11 @@ class m151119_055311_create_tour extends Migration
 
     public function safeUp()
     {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
         $this->createTable($this->tableName,[
             'id' => $this->primaryKey(),
             'name' => $this->text()->notNull(),
@@ -22,7 +27,7 @@ class m151119_055311_create_tour extends Migration
             'time' => $this->text()->defaultValue(null),
             'from_year' => $this->integer()->notNull(),
             'to_year' => $this->integer()->notNull(),
-        ]);
+        ],$tableOptions);
 
         $this->addForeignKey($this->fk_concert,$this->tableName,'concert_id',$this->concertTable,'id');
     }

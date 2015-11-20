@@ -11,14 +11,14 @@ use app\models\User;
 use yii\console\Controller;
 
 
-class UserController extends Controller
+class ConfigController extends Controller
 {
     /**
      * Добавления пользователя
      * @param $name string
      * @param $password string
      */
-    public function actionIndex($name, $password)
+    public function actionUserAdd($name, $password)
     {
         echo "Добавляем пользователя $name:$password\n";
         $u = new User();
@@ -27,6 +27,15 @@ class UserController extends Controller
         $u->generateAuthKey();
         if (!$u->save()) {
             echo "Ошибка: " .var_export($u->getFirstErrors()) . "\n";
+        }
+    }
+
+    public function actionClubsLoad($filename) {
+        if (!is_readable($filename))
+        {
+            die("Файл '$filename' не читается\n");
+        } else {
+
         }
     }
 }
