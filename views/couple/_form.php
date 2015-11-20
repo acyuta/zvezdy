@@ -31,7 +31,7 @@ $tours = isset($tours) ? $tours : [];
     } else echo $form->field($model, 'tour_id')->dropDownList(
         \yii\helpers\ArrayHelper::map($tours, 'id', function ($model) {
             /* @var $model Tour */
-            return $model->name . ' ' . $model->age_group . '(' . $model->time . ')';
+            return $model->program_position . '. ' .$model->name . ' ' . $model->age_group . ' (' . $model->time . ')';
         }, function ($model) {
             /* @var $model Tour */
             return $model->concert->name;
