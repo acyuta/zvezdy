@@ -33,6 +33,12 @@ $this->params['breadcrumbs'][] = $tour->getReadableName();
                 'value' => function ($model) {
                     return $model->gsurname . ' ' . $model->gname . '(' . $model->gyear . ')';
                 }
+            ],
+            [
+                'attribute' => 'club_id',
+                'value' => function($model) {
+                    return $model->club->name;
+                }
             ]
         ]
     ]) ?>
