@@ -25,13 +25,13 @@ $this->params['breadcrumbs'][] = $tour->getReadableName();
             [
                 'label' => 'Партнер',
                 'value' => function ($model) {
-                    return $model->bsurname . ' ' . $model->bname . '(' . $model->byear . ')';
+                    return $model->bsurname . ' ' . $model->bname . ' (' . $model->byear . ')';
                 }
             ],
             [
                 'label' => 'Партнерша',
                 'value' => function ($model) {
-                    return $model->gsurname . ' ' . $model->gname . '(' . $model->gyear . ')';
+                    return $model->gsurname . ' ' . $model->gname . ' (' . $model->gyear . ')';
                 }
             ],
             [
