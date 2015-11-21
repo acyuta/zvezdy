@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
             /* @var $concert Concert */
             ?>
             <div class="panel panel-default">
-                <div class="panel-heading"><?= $concert->name ?></div>
+                <div class="panel-heading"><?= $concert->name ?> (<?= $concert->countCouples()?> пар)</div>
                 <ul class="list-group">
                 <?php
                     foreach($concert->tours as $tour) {

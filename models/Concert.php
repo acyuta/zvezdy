@@ -65,4 +65,18 @@ class Concert extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Tour::className(), ['concert_id' => 'id']);
     }
+
+    /**
+     * @return int
+     */
+    public function countCouples()
+    {
+        $tours = $this->getTours()->all();
+        $ids = [];
+        foreach ($tours as $t) {
+            $ids[] = $t->id;
+        }
+        $size = Couple::find()->where(['tour_id' => $ids])->count();
+        return $size;
+    }
 }
