@@ -6,6 +6,7 @@ use app\models\Club;
 use Yii;
 use app\models\Couple;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -97,6 +98,10 @@ class CoupleController extends NonGuestController
         $bsurname =[];
         $gsurname = [];
         $years = [2015];
+        $clubs = ArrayHelper::map(Club::find()->all(), 'id', function ($club) {
+            /* @var $club Club */
+            return $club->name . ' (' . $club->leader . ')';
+        }, 'city');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -108,7 +113,7 @@ class CoupleController extends NonGuestController
                 'gnames' => $gnames,
                 'gsurnames' => $gsurname,
                 'years' => $years,
-                'clubs' => Club::find()->all(),
+                'clubs' => $clubs,
                 'tours' => $model->tour->concert->tours,
             ]);
         }
