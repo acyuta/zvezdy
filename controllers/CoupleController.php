@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Club;
 use Yii;
 use app\models\Couple;
 use yii\data\ActiveDataProvider;
@@ -91,12 +92,24 @@ class CoupleController extends NonGuestController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $bnames = [];
+        $gnames = [];
+        $bsurname =[];
+        $gsurname = [];
+        $years = [2015];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'bnames' => $bnames,
+                'bsurnames' => $bsurname,
+                'gnames' => $gnames,
+                'gsurnames' => $gsurname,
+                'years' => $years,
+                'clubs' => Club::find()->all(),
+                'tours' => $model->tour->concert->tours,
             ]);
         }
     }
