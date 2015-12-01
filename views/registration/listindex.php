@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <ul class="list-group">
                 <?php
                     foreach($concert->tours as $tour) {
-                        echo Html::a($tour->getReadableName(),['registration/tour', 'id'=>$tour->id],['class' => 'list-group-item']);
+                        echo Html::a($tour->getReadableName() .  ($tour->is_solo) ? 'соло' : '',['registration/tour', 'id'=>$tour->id],['class' => 'list-group-item']);
                     }
                 ?>
                 </ul>
