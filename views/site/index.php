@@ -30,7 +30,7 @@ $this->title = 'Регистрация на Восходящие звезды';
                     if ($model->tours !== null) {
                         $res = "";
                         foreach ($model->tours as $tour) {
-                            $res .= '<p>' . $tour->program_position . '. ' .$tour->name .  ' (' . $tour->age_group . ')' . ($tour->is_solo == 1 ? ' соло' : '') . '</p></p>';
+                            $res .= '<p>' . $tour->program_position . '. ' .$tour->name .  ' (' . $tour->dances . ')' . ($tour->is_solo == 1 ? ' соло' : '') . '</p></p>';
                         }
                     }
                     return $res;
